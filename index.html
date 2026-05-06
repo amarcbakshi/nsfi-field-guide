@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>nSFi · A field guide to team forms</title>
+<meta name="description" content="nSFi — New Social Forms — a field guide to the social forms teams run on, and how to redesign them. Year One: Teams. MIT Center for Constructive Communication, in cooperation with Google Xi." />
+<link rel="icon" href="./logos/Avatar.svg" />
+<link rel="stylesheet" href="./colors_and_type.css" />
+<style>
+/* =========================================================
+   nSFi — Direction C — Field Guide (interactive)
+   Tokens from /colors_and_type.css.
+   ========================================================= */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: #FAFAF7; color: var(--fg-2); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img, svg { display: block; max-width: 100%; }
+::selection { background: var(--infra-green); color: #000; }
+a { color: #000; text-decoration: underline; text-underline-offset: .18em; transition: color var(--dur-fast) var(--ease-out); }
+a:hover { color: var(--thermal-orange); }
+.skip { position: absolute; left: -9999px; top: 0; padding: 8px 12px; background: #000; color: #fff; z-index: 100; }
+.skip:focus { left: 16px; top: 12px; }
+
+/* ---------- Masthead ---------- */
+.mast {
+  position: sticky; top: 0; z-index: 50;
+  background: #FAFAF7;
+  border-bottom: 1px solid #000;
+  display: grid; grid-template-columns: auto 1fr auto;
+  align-items: center; gap: 24px; padding: 14px 32px;
+}
+.mast__brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #000; }
+.mast__brand img { width: 32px; height: 32px; }
+.mast__brand-mono { display: flex; flex-direction: column; line-height: 1; }
+.mast__brand-mark { font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--clay); }
+.mast__brand-name { font-family: var(--font-sans); font-weight: 700; font-size: 16px; letter-spacing: -0.01em; margin-top: 3px; }
+.mast__brand-name b { font-weight: 700; }
+.mast__meta { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #000; text-align: center; }
+.mast__meta b { font-family: var(--font-sans); letter-spacing: 0; font-weight: 700; }
+.mast__nav { display: flex; align-items: center; gap: 18px; }
+.mast__link { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #000; text-decoration: none; }
+.mast__link:hover { color: var(--thermal-orange); }
+.mast__cta { font-family: var(--font-sans); font-weight: 700; font-size: 12px; background: #000; color: #fff; padding: 8px 14px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.mast__cta:hover { background: var(--thermal-orange); color: #000; }
+@media (max-width: 900px) {
+  .mast { grid-template-columns: auto auto; }
+  .mast__meta { display: none; }
+  .mast__nav .mast__link:not(:last-child):not(.mast__cta) { display: none; }
+}
+
+/* ---------- Section base ---------- */
+.section { max-width: 1280px; margin: 0 auto; padding: 88px 32px; }
+.section--alt { background: #fff; max-width: none; padding-left: max(32px, calc((100vw - 1280px) / 2 + 32px)); padding-right: max(32px, calc((100vw - 1280px) / 2 + 32px)); border-top: 1px solid #000; border-bottom: 1px solid #000; }
+.section--ink { background: #000; color: #FAFAF7; max-width: none; padding-left: max(32px, calc((100vw - 1280px) / 2 + 32px)); padding-right: max(32px, calc((100vw - 1280px) / 2 + 32px)); }
+.section--green { background: var(--infra-green); max-width: none; padding-left: max(32px, calc((100vw - 1280px) / 2 + 32px)); padding-right: max(32px, calc((100vw - 1280px) / 2 + 32px)); }
+
+.plate { display: grid; grid-template-columns: 88px 1fr; gap: 24px; align-items: end; border-top: 3px solid currentColor; padding-top: 18px; margin-bottom: 28px; }
+.plate__num { font-family: var(--font-display); font-weight: 540; font-size: 64px; line-height: 0.82; letter-spacing: -0.02em; }
+.plate__meta { display: flex; flex-direction: column; gap: 4px; }
+.plate__eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.plate__title { font-family: var(--font-sans); font-weight: 700; font-size: clamp(28px, 3vw, 40px); line-height: 1.1; letter-spacing: -0.01em; margin: 0; }
+.section--ink .plate__title { color: #fff; }
+
+.lede { font-family: var(--font-sans); font-size: clamp(18px, 1.4vw, 22px); line-height: 1.55; max-width: 820px; margin: 0 0 28px; }
+.section--ink .lede { color: #E5E1D5; }
+p { font-family: var(--font-sans); font-size: 17px; line-height: 1.6; color: var(--fg-2); margin: 0 0 16px; max-width: 820px; }
+.section--ink p { color: #D9DDD4; }
+strong { font-weight: 700; color: #000; }
+.section--ink strong { color: #fff; }
+
+/* ---------- Hero ---------- */
+.hero { max-width: 1280px; margin: 0 auto; padding: 64px 32px 96px; }
+.hero__top { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; border-top: 3px solid #000; padding-top: 14px; margin-bottom: 36px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #000; }
+.hero__top b { font-family: var(--font-sans); font-weight: 700; letter-spacing: 0; font-size: 13px; }
+.hero__display { font-family: var(--font-sans); font-weight: 700; font-size: clamp(48px, 8vw, 110px); line-height: 0.94; letter-spacing: -0.025em; color: #000; margin: 0 0 24px; max-width: 1100px; text-wrap: balance; }
+.hero__display em { font-style: normal; background: var(--infra-green); padding: 0 .12em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hero__sub { font-family: var(--font-sans); font-size: clamp(18px, 1.5vw, 24px); line-height: 1.45; color: var(--fg-2); max-width: 880px; margin: 0 0 24px; }
+.hero__partners { display: flex; flex-wrap: wrap; gap: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clay); border-top: 1px solid #000; padding-top: 14px; margin-top: 20px; }
+.hero__partners b { color: #000; }
+
+.hero__diagram { margin-top: 56px; border: 1px solid #000; background: #fff; position: relative; }
+.hero__diagram-caption { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #000; padding: 12px 18px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #000; }
+.hero__diagram-caption b { font-family: var(--font-sans); letter-spacing: 0; font-weight: 700; font-size: 12px; }
+
+.hero__diagram-hint {
+  position: absolute; top: 12px; right: 16px;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--clay);
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.hero__diagram-hint .dot { width: 6px; height: 6px; border-radius: 999px; background: var(--infra-green); display: inline-block; animation: pulse 2.4s var(--ease-out) infinite; }
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.7); opacity: .55; }
+}
+
+/* ---------- Hotspots (interactive SVG components) ---------- */
+.hotspot {
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out);
+  transform-origin: center;
+  transform-box: fill-box;
+}
+.hotspot:hover, .hotspot:focus { outline: none; }
+.hotspot:hover .hs-marker, .hotspot:focus .hs-marker { transform: scale(1.6); }
+.hotspot:hover .hs-line, .hotspot:focus .hs-line { stroke-width: 2; stroke: var(--thermal-orange); }
+.hotspot:hover .hs-label, .hotspot:focus .hs-label { fill: var(--thermal-orange); font-weight: 700; }
+.hotspot .hs-marker { transition: transform var(--dur-fast) var(--ease-out); transform-origin: center; transform-box: fill-box; }
+.hotspot .hs-line { transition: stroke var(--dur-fast) var(--ease-out), stroke-width var(--dur-fast) var(--ease-out); }
+.hotspot .hs-label { transition: fill var(--dur-fast) var(--ease-out); }
+.hotspot .hs-hit { fill: transparent; cursor: pointer; }
+
+/* ---------- Compare (inherited vs redesigned) ---------- */
+.compare { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #000; border-bottom: 1px solid #000; background: #fff; }
+@media (max-width: 800px) { .compare { grid-template-columns: 1fr; } }
+.compare__cell { padding: 24px; }
+.compare__cell + .compare__cell { border-left: 1px solid #000; }
+@media (max-width: 800px) { .compare__cell + .compare__cell { border-left: 0; border-top: 1px solid #000; } }
+.compare__label { display: flex; justify-content: space-between; gap: 12px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #000; border-bottom: 1px solid #000; padding-bottom: 8px; margin-bottom: 16px; }
+.compare__label b { font-family: var(--font-sans); font-weight: 700; letter-spacing: 0; font-size: 12px; }
+
+/* ---------- Protocol vignette (3 frames) ---------- */
+.protocol { margin-top: 40px; background: #fff; border: 1px solid #000; }
+.protocol__hd { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 12px 18px; border-bottom: 1px solid #000; font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #000; }
+.protocol__hd b { font-family: var(--font-sans); font-weight: 700; letter-spacing: 0; font-size: 13px; }
+.protocol__steps { display: grid; grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 900px) { .protocol__steps { grid-template-columns: 1fr; } }
+.protocol__step { padding: 24px; border-right: 1px solid #000; display: flex; flex-direction: column; }
+.protocol__step:last-child { border-right: 0; }
+@media (max-width: 900px) { .protocol__step { border-right: 0; border-bottom: 1px solid #000; } .protocol__step:last-child { border-bottom: 0; } }
+.protocol__num { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--clay); margin-bottom: 6px; }
+.protocol__title { font-family: var(--font-sans); font-weight: 700; font-size: 17px; line-height: 1.2; margin: 0 0 12px; color: #000; letter-spacing: -0.005em; }
+.protocol__svg { width: 100%; height: auto; max-width: 280px; margin: 0 auto 14px; }
+.protocol__cap { font-family: var(--font-sans); font-size: 14px; line-height: 1.5; color: var(--fg-2); margin: 0 0 14px; }
+.protocol__more {
+  margin-top: auto; align-self: flex-start;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  background: transparent; border: 1px solid #000; color: #000;
+  padding: 6px 10px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.protocol__more:hover { background: #000; color: #fff; }
+
+/* ---------- Pull quote ---------- */
+.pullquote { margin-top: 40px; font-family: var(--font-sans); font-weight: 700; font-size: clamp(24px, 3.2vw, 40px); line-height: 1.2; letter-spacing: -0.015em; color: #000; max-width: 1000px; background: var(--infra-green); padding: 32px 36px; border: 2px solid #000; text-wrap: balance; }
+
+/* ---------- Workstreams ---------- */
+.streams { margin-top: 16px; }
+.stream {
+  display: grid; grid-template-columns: 64px 1fr 240px 110px;
+  gap: 24px; align-items: center;
+  border-bottom: 1px solid #000;
+  padding: 28px 0;
+}
+.stream:first-child { border-top: 1px solid #000; }
+@media (max-width: 900px) {
+  .stream { grid-template-columns: 48px 1fr auto; }
+  .stream__icon svg { width: 48px; height: 48px; }
+  .stream__num { display: none; }
+}
+.stream__icon { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; background: #fff; border: 1px solid #000; }
+.stream__icon svg { width: 44px; height: 44px; }
+.stream__copy h3 { font-family: var(--font-sans); font-weight: 700; font-size: 22px; line-height: 1.15; margin: 0 0 6px; color: #000; letter-spacing: -0.01em; }
+.stream__copy p { font-family: var(--font-sans); font-size: 16px; line-height: 1.55; color: var(--fg-2); margin: 0; max-width: 720px; }
+.stream__num { font-family: var(--font-display); font-weight: 540; font-size: 56px; line-height: 0.9; letter-spacing: -0.02em; text-align: right; color: #000; }
+.stream__more {
+  justify-self: end;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  background: transparent; border: 1px solid #000; color: #000;
+  padding: 6px 10px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.stream__more:hover { background: #000; color: #fff; }
+
+/* ---------- Research directions ---------- */
+.research { margin-top: 8px; display: grid; grid-template-columns: 1fr; gap: 32px; }
+@media (min-width: 900px) { .research { grid-template-columns: 1fr 1fr; gap: 48px 64px; } }
+.research__item { border-top: 2px solid #000; padding-top: 18px; display: grid; grid-template-columns: 56px 1fr; gap: 18px; align-items: start; }
+.research__icon { width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: #FAFAF7; border: 1px solid #000; }
+.research__icon svg { width: 38px; height: 38px; }
+.research__num { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--clay); margin: 2px 0 6px; }
+.research__title { font-family: var(--font-sans); font-weight: 700; font-size: 20px; line-height: 1.2; margin: 0 0 10px; color: #000; letter-spacing: -0.01em; }
+.research__body { font-family: var(--font-sans); font-size: 15px; line-height: 1.55; color: var(--fg-2); margin: 0 0 12px; max-width: 540px; }
+.research__more { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; background: transparent; border: 1px solid #000; color: #000; padding: 5px 9px; cursor: pointer; transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); }
+.research__more:hover { background: #000; color: #fff; }
+
+/* ---------- Audience ---------- */
+.audience { margin-top: 16px; display: grid; grid-template-columns: 1fr; border-top: 1px solid #fff; }
+@media (min-width: 900px) { .audience { grid-template-columns: 1fr 1fr 1fr; } }
+.audience__col { padding: 28px; border-bottom: 1px solid #fff; }
+.audience > .audience__col:not(:last-child) { border-right: 1px solid #fff; }
+@media (max-width: 899px) { .audience > .audience__col { border-right: 0; } }
+.audience__icon { margin-bottom: 14px; }
+.audience__icon svg { width: 48px; height: 48px; }
+.audience__tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #FAFAF7; margin: 0 0 12px; opacity: .7; }
+.audience__title { font-family: var(--font-sans); font-weight: 700; font-size: 22px; line-height: 1.2; margin: 0 0 10px; color: #fff; letter-spacing: -0.01em; }
+.audience__body { font-family: var(--font-sans); font-size: 15px; line-height: 1.6; color: #D9DDD4; margin: 0; }
+
+/* ---------- About ---------- */
+.about__head { font-family: var(--font-sans); font-weight: 700; font-size: clamp(32px, 4.5vw, 60px); line-height: 1.05; letter-spacing: -0.02em; color: #000; max-width: 1000px; margin: 12px 0 28px; text-wrap: balance; }
+
+/* ---------- FAQ ---------- */
+.faq { margin-top: 16px; border-top: 2px solid #000; }
+.faq__item { border-bottom: 1px solid #000; }
+.faq__summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 40px 1fr 32px; gap: 14px; align-items: baseline; padding: 22px 0; font-family: var(--font-sans); font-weight: 700; font-size: clamp(17px, 1.4vw, 21px); line-height: 1.3; color: #000; letter-spacing: -0.01em; transition: color var(--dur-fast); }
+.faq__summary::-webkit-details-marker { display: none; }
+.faq__summary:hover { color: var(--thermal-orange); }
+.faq__num { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--clay); }
+.faq__plus { text-align: right; font-family: var(--font-mono); font-size: 22px; line-height: 1; color: #000; transition: transform var(--dur-mid) var(--ease-out); }
+.faq__item[open] .faq__plus { transform: rotate(45deg); }
+.faq__answer { font-family: var(--font-sans); font-size: 16px; line-height: 1.6; color: var(--fg-2); margin: 0; padding: 0 0 24px 54px; max-width: 820px; }
+@media (max-width: 600px) { .faq__answer { padding-left: 0; } }
+
+/* ---------- Connect ---------- */
+.connect { display: grid; grid-template-columns: 1fr; gap: 32px; margin-top: 16px; }
+@media (min-width: 900px) { .connect { grid-template-columns: 1fr 1fr; gap: 64px; } }
+.connect__intro p { font-size: 17px; line-height: 1.6; color: #000; margin: 0 0 14px; max-width: 520px; }
+.connect__intro h4 { font-family: var(--font-sans); font-weight: 700; font-size: 16px; margin: 22px 0 4px; color: #000; }
+.connect__inst { margin-top: 28px; padding-top: 16px; border-top: 1px solid #000; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: #000; max-width: 520px; }
+.form { display: flex; flex-direction: column; gap: 18px; max-width: 540px; }
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 640px) { .form__row { grid-template-columns: 1fr; } }
+.form__field { display: flex; flex-direction: column; gap: 4px; }
+.form__field span { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: #000; }
+.form__field input, .form__field textarea, .form__field select { font-family: var(--font-sans); font-size: 16px; padding: 8px 0; border: 0; border-bottom: 2px solid #000; background: transparent; outline: none; color: #000; resize: vertical; border-radius: 0; }
+.form__field select { appearance: none; padding-right: 22px; background-image: linear-gradient(45deg, transparent 50%, #000 50%), linear-gradient(135deg, #000 50%, transparent 50%); background-position: calc(100% - 14px) 14px, calc(100% - 9px) 14px; background-size: 5px 5px; background-repeat: no-repeat; }
+.form__field input:focus, .form__field textarea:focus, .form__field select:focus { background: rgba(0,0,0,.04); }
+.form__btn { align-self: flex-start; font-family: var(--font-sans); font-weight: 700; font-size: 14px; padding: 14px 26px; border-radius: 999px; border: 0; cursor: pointer; background: #000; color: #fff; display: inline-flex; align-items: center; gap: 8px; transition: background var(--dur-fast) var(--ease-out); }
+.form__btn:hover { background: #1a1a1a; }
+.form__honey { display: none; }
+
+/* ---------- Footer + partner block ---------- */
+.foot { background: #000; color: #fff; padding: 0 32px; }
+.foot__inner { max-width: 1280px; margin: 0 auto; }
+
+.partners {
+  padding: 56px 0 40px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid #2A2A2A;
+}
+@media (max-width: 720px) { .partners { grid-template-columns: 1fr; } }
+.partner { padding: 28px 32px 28px 0; }
+.partner + .partner { border-left: 1px solid #2A2A2A; padding-left: 32px; padding-right: 0; }
+@media (max-width: 720px) { .partner + .partner { border-left: 0; border-top: 1px solid #2A2A2A; padding-left: 0; padding-top: 28px; margin-top: 28px; } }
+.partner__role { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 14px; }
+.partner__mark { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.partner__name { font-family: var(--font-sans); font-weight: 700; font-size: clamp(20px, 2.2vw, 30px); line-height: 1.1; letter-spacing: -0.02em; color: #fff; }
+.partner__sub { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.6); display: block; }
+
+/* MIT bars wordmark — pure SVG, monochrome, scaled tastefully */
+.partner__bars svg { width: 56px; height: auto; }
+/* Google Xi mark — typographic G + mono "xi" */
+.partner__gxi { width: 56px; height: 56px; border: 1px solid rgba(255,255,255,.3); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.partner__gxi b { font-family: var(--font-sans); font-weight: 700; font-size: 22px; line-height: 1; color: #fff; }
+.partner__gxi span { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--infra-green); }
+
+.foot__top { padding: 48px 0; display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
+.foot__mark { width: 220px; height: auto; }
+.foot__nav { list-style: none; display: flex; gap: 22px; padding: 0; margin: 0; flex-wrap: wrap; }
+.foot__nav a { color: #fff; text-decoration: none; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.foot__nav a:hover { color: var(--infra-green); }
+.foot__bottom { padding: 22px 0 32px; display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; border-top: 1px solid #2A2A2A; font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.foot__bottom .meta { color: rgba(255,255,255,.6); }
+.foot__bottom a { color: #fff; }
+
+/* ---------- SVG label discipline ---------- */
+.dg-label { font-family: var(--font-mono); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; fill: #000; }
+.dg-label--clay { fill: var(--clay); }
+.dg-label--white { fill: #FAFAF7; }
+.dg-stroke { stroke: #000; fill: none; stroke-width: 1.4; }
+.dg-stroke--thin { stroke-width: 1; }
+.dg-stroke--dashed { stroke-dasharray: 3 3; }
+.dg-fill-green { fill: var(--infra-green); stroke: #000; stroke-width: 1; }
+.dg-fill-black { fill: #000; }
+
+/* ---------- Drawer (deep-dive panel) ---------- */
+.drawer { position: fixed; inset: 0; z-index: 200; pointer-events: none; visibility: hidden; }
+.drawer.is-open { visibility: visible; pointer-events: auto; }
+.drawer__overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background var(--dur-mid) var(--ease-out); }
+.drawer.is-open .drawer__overlay { background: rgba(0,0,0,.45); }
+.drawer__panel {
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: min(560px, 92vw);
+  background: #FAFAF7;
+  transform: translateX(100%);
+  transition: transform var(--dur-mid) var(--ease-out);
+  overflow-y: auto;
+  display: flex; flex-direction: column;
+  border-left: 2px solid #000;
+}
+.drawer.is-open .drawer__panel { transform: translateX(0); }
+.drawer__hd {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 18px 24px; border-bottom: 1px solid #000;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #000;
+  background: #fff;
+}
+.drawer__hd b { font-family: var(--font-sans); font-weight: 700; letter-spacing: 0; font-size: 13px; }
+.drawer__close { background: transparent; border: 1px solid #000; padding: 6px 10px; cursor: pointer; font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #000; transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); }
+.drawer__close:hover { background: #000; color: #fff; }
+.drawer__body { padding: 28px 24px 56px; }
+.drawer__num { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--clay); margin: 0 0 8px; }
+.drawer__title { font-family: var(--font-sans); font-weight: 700; font-size: clamp(26px, 4vw, 38px); line-height: 1.05; letter-spacing: -0.02em; margin: 0 0 14px; color: #000; }
+.drawer__lede { font-family: var(--font-sans); font-size: 17px; line-height: 1.5; color: #000; margin: 0 0 18px; max-width: 520px; }
+.drawer__body p { font-family: var(--font-sans); font-size: 16px; line-height: 1.6; color: var(--fg-2); margin: 0 0 14px; max-width: 520px; }
+.drawer__body p strong { color: #000; }
+.drawer__hr { border: 0; border-top: 1px solid #000; margin: 22px 0; }
+.drawer__list { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
+.drawer__list li { font-family: var(--font-sans); font-size: 15px; line-height: 1.5; color: #000; padding-left: 18px; position: relative; }
+.drawer__list li::before { content: "→"; position: absolute; left: 0; color: var(--thermal-orange); font-family: var(--font-mono); font-size: 12px; top: 4px; }
+.drawer__chip { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 4px 8px; background: var(--infra-green); color: #000; margin-bottom: 14px; }
+.drawer__sub { font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--clay); margin: 18px 0 8px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip">Skip to content</a>
+
+<header class="mast" id="top">
+  <a class="mast__brand" href="#top" aria-label="nSFi · New Social Forms">
+    <img src="./logos/Avatar.svg" alt="" />
+    <span class="mast__brand-mono">
+      <span class="mast__brand-mark">nSFi</span>
+      <span class="mast__brand-name">New Social Forms</span>
+    </span>
+  </a>
+  <div class="mast__meta">
+    <b>nSFi · A field guide to team forms</b> · Year One · Vol. 01 · 2026
+  </div>
+  <nav class="mast__nav" aria-label="Primary">
+    <a class="mast__link" href="#teams">Teams</a>
+    <a class="mast__link" href="#workstreams">Workstreams</a>
+    <a class="mast__link" href="#research">Research</a>
+    <a class="mast__link" href="#about">About</a>
+    <a class="mast__link" href="#faq">FAQ</a>
+    <a class="mast__cta" href="#connect">Join →</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ============================================================
+       PLATE 00 · HERO + EXPLODED-DIAGRAM (interactive)
+       ============================================================ -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="hero__top">
+      <span><b>nSFi · 00</b> Plate · cover</span>
+      <span>Year One · Teams</span>
+      <span>MIT CCC × Google Xi</span>
+    </div>
+
+    <h1 class="hero__display" id="hero-h">
+      A field guide to the social forms <em>teams</em> run on.
+    </h1>
+    <p class="hero__sub">
+      Most teams are running structures no one designed. <strong>nSFi</strong> is naming the components, mapping the variations, and learning to redesign them deliberately for what teams now have to do.
+    </p>
+
+    <div class="hero__partners">
+      <span><b>nSFi</b> · New Social Forms Initiative</span>
+      <span><b>MIT</b> Center for Constructive Communication</span>
+      <span><b>Google Xi</b> · Experience Institute</span>
+      <span>Year One · 2026</span>
+    </div>
+
+    <figure class="hero__diagram" aria-labelledby="hero-d-cap">
+      <span class="hero__diagram-hint" aria-hidden="true"><span class="dot"></span>Click a component to dive deeper</span>
+      <svg viewBox="0 0 960 520" role="img" aria-label="Exploded diagram of a team form with eight components named. Each component is interactive.">
+        <rect x="1" y="1" width="958" height="518" class="dg-stroke dg-stroke--thin" />
+        <g class="dg-stroke dg-stroke--thin">
+          <line x1="120" y1="1" x2="120" y2="14" />
+          <line x1="240" y1="1" x2="240" y2="14" />
+          <line x1="360" y1="1" x2="360" y2="14" />
+          <line x1="480" y1="1" x2="480" y2="14" />
+          <line x1="600" y1="1" x2="600" y2="14" />
+          <line x1="720" y1="1" x2="720" y2="14" />
+          <line x1="840" y1="1" x2="840" y2="14" />
+        </g>
+        <text x="14" y="22" class="dg-label">PLATE 00 · A TEAM FORM, EXPLODED</text>
+        <text x="946" y="22" class="dg-label" text-anchor="end">8 COMPONENTS · CLICK TO EXPLORE</text>
+
+        <circle cx="480" cy="260" r="86" class="dg-stroke" />
+        <g class="dg-fill-black">
+          <circle cx="450" cy="232" r="4.5" />
+          <circle cx="480" cy="220" r="4.5" />
+          <circle cx="510" cy="232" r="4.5" />
+          <circle cx="514" cy="270" r="4.5" />
+          <circle cx="490" cy="295" r="4.5" />
+          <circle cx="455" cy="290" r="4.5" />
+          <circle cx="446" cy="262" r="4.5" />
+        </g>
+        <text x="480" y="370" text-anchor="middle" class="dg-label dg-label--clay">[ THE TEAM ]</text>
+
+        <!-- Hotspot 01 — INPUT BOUNDARIES -->
+        <g class="hotspot" data-id="c01" tabindex="0" role="button" aria-label="Input boundaries — open detail">
+          <line x1="430" y1="195" x2="220" y2="80" class="hs-line dg-stroke dg-stroke--thin" />
+          <circle cx="430" cy="195" r="3" class="hs-marker dg-fill-black" />
+          <text x="218" y="74" class="hs-label dg-label" text-anchor="end">[01] INPUT BOUNDARIES</text>
+          <text x="218" y="86" class="dg-label dg-label--clay" text-anchor="end">WHO + WHAT GETS IN</text>
+          <rect x="40" y="58" width="180" height="34" class="hs-hit" />
+        </g>
+
+        <!-- Hotspot 02 — PROCESS ARCHITECTURE (highlighted, Year One) -->
+        <g class="hotspot" data-id="c02" tabindex="0" role="button" aria-label="Process architecture — open detail">
+          <line x1="530" y1="195" x2="740" y2="80" class="hs-line dg-stroke" />
+          <circle cx="530" cy="195" r="5" class="hs-marker dg-fill-green" />
+          <rect x="742" y="62" width="180" height="28" class="dg-fill-green" />
+          <text x="752" y="80" class="hs-label dg-label">[02] PROCESS ARCHITECTURE</text>
+          <text x="742" y="102" class="dg-label dg-label--clay">HOW DECISIONS GET MADE</text>
+          <rect x="742" y="58" width="200" height="48" class="hs-hit" />
+        </g>
+
+        <!-- Hotspot 03 — ROLE STRUCTURE -->
+        <g class="hotspot" data-id="c03" tabindex="0" role="button" aria-label="Role structure — open detail">
+          <line x1="566" y1="260" x2="780" y2="180" class="hs-line dg-stroke dg-stroke--thin" />
+          <circle cx="566" cy="260" r="3" class="hs-marker dg-fill-black" />
+          <text x="782" y="174" class="hs-label dg-label">[03] ROLE STRUCTURE</text>
+          <text x="782" y="186" class="dg-label dg-label--clay">WHO DOES WHAT</text>
+          <rect x="782" y="160" width="160" height="32" class="hs-hit" />
+        </g>
+
+        <!-- Hotspot 04 — OUTPUT MECHANISMS -->
+        <g class="hotspot" data-id="c04" tabindex="0" role="button" aria-label="Output mechanisms — open detail">
+          <line x1="555" y1="320" x2="780" y2="380" class="hs-line dg-stroke dg-stroke--thin" />
+          <circle cx="555" cy="320" r="3" class="hs-marker dg-fill-black" />
+          <text x="782" y="378" class="hs-label dg-label">[04] OUTPUT MECHANISMS</text>
+          <text x="782" y="390" class="dg-label dg-label--clay">HOW WORK LEAVES THE TEAM</text>
+          <rect x="782" y="362" width="160" height="34" class="hs-hit" />
+        </g>
+
+        <!-- Hotspot 05 — FEEDBACK + ACCOUNTABILITY -->
+        <g class="hotspot" data-id="c05" tabindex="0" role="button" aria-label="Feedback and accountability — open detail">
+          <line x1="510" y1="345" x2="640" y2="450" class="hs-line dg-stroke dg-stroke--thin" />
+          <circle cx="510" cy="345" r="3" class="hs-marker dg-fill-black" />
+          <text x="650" y="446" class="hs-label dg-label">[05] FEEDBACK + ACCOUNTABILITY</text>
+          <text x="650" y="458" class="dg-label dg-label--clay">HOW THE TEAM KNOWS</text>
+          <rect x="650" y="430" width="220" height="34" class="hs-hit" />
+        </g>
+
+        <!-- Hotspot 06 — EPISTEMIC INPUTS -->
+        <g class="hotspot" data-id="c06" tabindex="0" role="button" aria-label="Epistemic inputs — open detail">
+          <line x1="450" y1="345" x2="320" y2="450" class="hs-line dg-stroke dg-stroke--thin" />
+          <circle cx="450" cy="345" r="3" class="hs-marker dg-fill-black" />
+          <text x="310" y="446" class="hs-label dg-label" text-anchor="end">[06] EPISTEMIC INPUTS</text>
+          <text x="310" y="458" class="dg-label dg-label--clay" text-anchor="end">WHAT THE TEAM KNOWS</text>
+          <rect x="120" y="430" width="200" height="34" class="hs-hit" />
+        </g>
+
+        <!-- Hotspot 07 — SPATIAL + MATERIAL -->
+        <g class="hotspot" data-id="c07" tabindex="0" role="button" aria-label="Spatial and material — open detail">
+          <line x1="394" y1="260" x2="180" y2="180" class="hs-line dg-stroke dg-stroke--thin" />
+          <circle cx="394" cy="260" r="3" class="hs-marker dg-fill-black" />
+          <text x="178" y="174" class="hs-label dg-label" text-anchor="end">[07] SPATIAL + MATERIAL</text>
+          <text x="178" y="186" class="dg-label dg-label--clay" text-anchor="end">WHERE + WITH WHAT</text>
+          <rect x="20" y="160" width="160" height="32" class="hs-hit" />
+        </g>
+
+        <!-- Hotspot 08 — HIERARCHY + POWER (rarely named) -->
+        <g class="hotspot" data-id="c08" tabindex="0" role="button" aria-label="Hierarchy and power — open detail">
+          <line x1="480" y1="174" x2="480" y2="50" class="hs-line dg-stroke dg-stroke--thin dg-stroke--dashed" />
+          <circle cx="480" cy="174" r="3" class="hs-marker dg-fill-black" />
+          <text x="480" y="44" class="hs-label dg-label" text-anchor="middle">[08] HIERARCHY + POWER</text>
+          <text x="480" y="56" class="dg-label dg-label--clay" text-anchor="middle">[ RARELY NAMED ]</text>
+          <rect x="380" y="32" width="200" height="32" class="hs-hit" />
+        </g>
+
+        <g class="dg-stroke dg-stroke--thin">
+          <line x1="20" y1="494" x2="60" y2="494" />
+        </g>
+        <text x="68" y="498" class="dg-label">DESIGNED COMPONENT</text>
+        <g class="dg-stroke dg-stroke--thin dg-stroke--dashed">
+          <line x1="280" y1="494" x2="320" y2="494" />
+        </g>
+        <text x="328" y="498" class="dg-label">RARELY NAMED</text>
+        <rect x="540" y="486" width="16" height="16" class="dg-fill-green" />
+        <text x="564" y="498" class="dg-label">YEAR ONE FOCUS · PROCESS ARCHITECTURE</text>
+      </svg>
+      <figcaption class="hero__diagram-caption" id="hero-d-cap">
+        <span><b>Fig. 00</b> · Eight components of a team form. Year One foregrounds process architecture; the others surface as the work proceeds.</span>
+        <span>nSFi · Plate 00 · interactive</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ============================================================
+       PLATE 01 · INHERITED VS REDESIGNED
+       ============================================================ -->
+  <section class="section section--alt">
+    <div class="plate">
+      <div class="plate__num">01</div>
+      <div class="plate__meta">
+        <span class="plate__eyebrow">◊ The team you inherited</span>
+        <h2 class="plate__title">Most teams are running forms no one designed.</h2>
+      </div>
+    </div>
+    <p class="lede">The standup. The all-hands. The retrospective. The roadmap review. The 1:1. These forms were borrowed, adapted, or defaulted into—rarely built from first principles, almost never redesigned once they're in place. They move information. They don't necessarily build trust, coordination, or collective intelligence.</p>
+    <p><strong>This isn't a management problem. It's a design problem.</strong></p>
+
+    <div class="compare" aria-label="Inherited form vs redesigned form, compared">
+      <div class="compare__cell">
+        <div class="compare__label"><b>Form A · Inherited</b><span>standup, round-robin</span></div>
+        <svg viewBox="0 0 360 240" role="img" aria-label="Diagram of an inherited round-robin standup">
+          <g class="dg-fill-black">
+            <circle cx="80" cy="140" r="9" />
+            <circle cx="140" cy="140" r="9" />
+            <circle cx="200" cy="140" r="9" />
+            <circle cx="260" cy="140" r="9" />
+          </g>
+          <g class="dg-stroke">
+            <path d="M 92 138 L 128 138" />
+            <polyline points="120,134 128,138 120,142" />
+            <path d="M 152 138 L 188 138" />
+            <polyline points="180,134 188,138 180,142" />
+            <path d="M 212 138 L 248 138" />
+            <polyline points="240,134 248,138 240,142" />
+          </g>
+          <circle cx="170" cy="60" r="11" class="dg-fill-black" />
+          <text x="170" y="44" class="dg-label" text-anchor="middle">MANAGER · PICKS TOP 5</text>
+          <line x1="170" y1="71" x2="170" y2="128" class="dg-stroke dg-stroke--thin dg-stroke--dashed" />
+          <line x1="280" y1="140" x2="334" y2="140" class="dg-stroke" />
+          <polyline points="326,134 334,140 326,146" class="dg-stroke" />
+          <text x="334" y="124" class="dg-label" text-anchor="end">DECISION</text>
+          <line x1="20" y1="200" x2="340" y2="200" class="dg-stroke dg-stroke--thin" />
+          <text x="20" y="220" class="dg-label dg-label--clay">FLOOR EFFECT · LOUDEST VOICE ANCHORS</text>
+        </svg>
+      </div>
+      <div class="compare__cell">
+        <div class="compare__label"><b>Form B · Redesigned</b><span>silent + LLM-augmented</span></div>
+        <svg viewBox="0 0 360 240" role="img" aria-label="Diagram of a redesigned form with silent brainstorming and an LLM in the affinity sort">
+          <rect x="150" y="20" width="60" height="22" class="dg-fill-green" />
+          <text x="180" y="35" class="dg-label" text-anchor="middle">LLM</text>
+          <g class="dg-fill-black">
+            <circle cx="60" cy="120" r="9" />
+            <circle cx="120" cy="100" r="9" />
+            <circle cx="240" cy="100" r="9" />
+            <circle cx="300" cy="120" r="9" />
+          </g>
+          <g class="dg-stroke dg-stroke--thin dg-stroke--dashed">
+            <line x1="60" y1="111" x2="155" y2="42" />
+            <line x1="120" y1="91" x2="165" y2="42" />
+            <line x1="240" y1="91" x2="195" y2="42" />
+            <line x1="300" y1="111" x2="205" y2="42" />
+          </g>
+          <ellipse cx="180" cy="170" rx="86" ry="28" class="dg-stroke" />
+          <g class="dg-fill-black">
+            <circle cx="124" cy="170" r="5" />
+            <circle cx="156" cy="170" r="5" />
+            <circle cx="204" cy="170" r="5" />
+            <circle cx="236" cy="170" r="5" />
+          </g>
+          <rect x="170" y="161" width="20" height="14" class="dg-fill-green" />
+          <text x="180" y="172" class="dg-label" text-anchor="middle">L</text>
+          <text x="180" y="208" class="dg-label dg-label--clay" text-anchor="middle">AFFINITY SORT · LLM IN THE ROOM</text>
+          <line x1="266" y1="170" x2="334" y2="170" class="dg-stroke" />
+          <polyline points="326,164 334,170 326,176" class="dg-stroke" />
+          <text x="334" y="158" class="dg-label" text-anchor="end">DECISION · HUMANS</text>
+          <line x1="20" y1="225" x2="340" y2="225" class="dg-stroke dg-stroke--thin" />
+        </svg>
+      </div>
+    </div>
+    <p style="margin-top: 24px;">A small number of practitioners—scattered across industries, vocabularies, and disciplines—treat teams as designed artifacts. They mostly work in isolation. There is no shared vocabulary, no shared research base. <strong>nSFi is building that foundation, starting with teams.</strong></p>
+  </section>
+
+  <!-- ============================================================
+       PLATE 02 · YEAR ONE FOCUS + PROTOCOL VIGNETTE
+       ============================================================ -->
+  <section class="section" id="teams">
+    <div class="plate">
+      <div class="plate__num">02</div>
+      <div class="plate__meta">
+        <span class="plate__eyebrow">◉ Year One · Focus</span>
+        <h2 class="plate__title">Teams are under more structural pressure than they've faced in decades.</h2>
+      </div>
+    </div>
+
+    <p class="lede">AI is changing who does what—and by extension, what a team is for. Remote and hybrid norms have disrupted the spatial forms that teams relied on without anyone naming them as forms. The coordination patterns that made sense for one era are running on inertia into another.</p>
+    <p>Most organizations are responding by adding tools or adjusting processes. Fewer are asking the structural question: <strong>what kind of team form does this moment actually require?</strong> That is nSFi's question.</p>
+
+    <div class="protocol" aria-label="Three-step diagram of a redesigned brainstorming protocol with an LLM">
+      <div class="protocol__hd">
+        <span><b>Plate 02 · A</b> · Vignette · A redesigned brainstorm</span>
+        <span>3 steps · ~60 min · click to dive deeper</span>
+      </div>
+      <div class="protocol__steps">
+        <div class="protocol__step">
+          <p class="protocol__num">Step 01 · 20 min</p>
+          <h3 class="protocol__title">Silent brainstorm with an LLM.</h3>
+          <svg class="protocol__svg" viewBox="0 0 280 180" role="img" aria-label="Each person works alone with an LLM">
+            <g><circle cx="60" cy="40" r="8" class="dg-fill-black" /><rect x="180" y="32" width="60" height="16" class="dg-fill-green" /><line x1="68" y1="40" x2="180" y2="40" class="dg-stroke dg-stroke--thin dg-stroke--dashed" /><text x="210" y="44" class="dg-label" text-anchor="middle">LLM</text></g>
+            <g><circle cx="60" cy="80" r="8" class="dg-fill-black" /><rect x="180" y="72" width="60" height="16" class="dg-fill-green" /><line x1="68" y1="80" x2="180" y2="80" class="dg-stroke dg-stroke--thin dg-stroke--dashed" /><text x="210" y="84" class="dg-label" text-anchor="middle">LLM</text></g>
+            <g><circle cx="60" cy="120" r="8" class="dg-fill-black" /><rect x="180" y="112" width="60" height="16" class="dg-fill-green" /><line x1="68" y1="120" x2="180" y2="120" class="dg-stroke dg-stroke--thin dg-stroke--dashed" /><text x="210" y="124" class="dg-label" text-anchor="middle">LLM</text></g>
+            <g><circle cx="60" cy="160" r="8" class="dg-fill-black" /><rect x="180" y="152" width="60" height="16" class="dg-fill-green" /><line x1="68" y1="160" x2="180" y2="160" class="dg-stroke dg-stroke--thin dg-stroke--dashed" /><text x="210" y="164" class="dg-label" text-anchor="middle">LLM</text></g>
+            <text x="60" y="22" class="dg-label dg-label--clay" text-anchor="middle">EACH PERSON</text>
+          </svg>
+          <p class="protocol__cap">Each person surfaces their own ideas plus the ones the model prompts. No floor effect.</p>
+          <button class="protocol__more" data-id="p01">Detail →</button>
+        </div>
+        <div class="protocol__step">
+          <p class="protocol__num">Step 02 · 30 min</p>
+          <h3 class="protocol__title">Affinity sort, LLM in the room.</h3>
+          <svg class="protocol__svg" viewBox="0 0 280 180" role="img" aria-label="Group converges, LLM is now a participant">
+            <ellipse cx="140" cy="90" rx="100" ry="60" class="dg-stroke" />
+            <g class="dg-fill-black">
+              <circle cx="90" cy="70" r="7" />
+              <circle cx="140" cy="55" r="7" />
+              <circle cx="190" cy="70" r="7" />
+              <circle cx="190" cy="120" r="7" />
+              <circle cx="90" cy="120" r="7" />
+            </g>
+            <rect x="125" y="83" width="30" height="18" class="dg-fill-green" />
+            <text x="140" y="96" class="dg-label" text-anchor="middle">LLM</text>
+            <text x="140" y="170" class="dg-label dg-label--clay" text-anchor="middle">7 PARTICIPANTS · 1 NON-VOTING</text>
+          </svg>
+          <p class="protocol__cap">The LLM names assumptions, flags contradictions, and generates the case nobody at the table would make.</p>
+          <button class="protocol__more" data-id="p02">Detail →</button>
+        </div>
+        <div class="protocol__step">
+          <p class="protocol__num">Step 03 · 10 min</p>
+          <h3 class="protocol__title">Decision · humans only.</h3>
+          <svg class="protocol__svg" viewBox="0 0 280 180" role="img" aria-label="Decision exits the team, made by the humans">
+            <ellipse cx="100" cy="90" rx="70" ry="42" class="dg-stroke" />
+            <g class="dg-fill-black">
+              <circle cx="65" cy="78" r="6" />
+              <circle cx="100" cy="68" r="6" />
+              <circle cx="135" cy="78" r="6" />
+              <circle cx="135" cy="108" r="6" />
+              <circle cx="65" cy="108" r="6" />
+            </g>
+            <line x1="170" y1="90" x2="246" y2="90" class="dg-stroke" />
+            <polyline points="238,84 246,90 238,96" class="dg-stroke" />
+            <text x="246" y="78" class="dg-label" text-anchor="end">DECISION</text>
+            <text x="100" y="155" class="dg-label dg-label--clay" text-anchor="middle">THE ROOM THINKS BETTER</text>
+          </svg>
+          <p class="protocol__cap">Blind spots are named. Decisions belong to the humans—but the room thinks better.</p>
+          <button class="protocol__more" data-id="p03">Detail →</button>
+        </div>
+      </div>
+    </div>
+
+    <blockquote class="pullquote">
+      What does it look like to deliberately design the social forms that make teams more effective—and can technology meaningfully amplify that?
+    </blockquote>
+
+    <p style="margin-top: 32px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--clay);">↳ Where this goes</p>
+    <p>Year One begins with teams. Over multiple years, nSFi will move across collective decision-making, care and healing, civic participation, learning, and conflict and repair. Teams come first because teams are where the most people will feel the change.</p>
+  </section>
+
+  <!-- ============================================================
+       PLATE 03 · WORKSTREAMS
+       ============================================================ -->
+  <section class="section section--alt" id="workstreams">
+    <div class="plate">
+      <div class="plate__num">03</div>
+      <div class="plate__meta">
+        <span class="plate__eyebrow">‡ Workstreams</span>
+        <h2 class="plate__title">Four workstreams. All pointed at teams.</h2>
+      </div>
+    </div>
+    <p class="lede">In Year One, every nSFi workstream takes teams as its subject.</p>
+
+    <div class="streams">
+      <article class="stream">
+        <span class="stream__icon" aria-hidden="true">
+          <svg viewBox="0 0 44 44">
+            <circle cx="22" cy="22" r="14" class="dg-stroke" />
+            <g class="dg-fill-black">
+              <circle cx="22" cy="8" r="2.5" /><circle cx="32" cy="14" r="2.5" /><circle cx="36" cy="22" r="2.5" /><circle cx="32" cy="30" r="2.5" /><circle cx="22" cy="36" r="2.5" /><circle cx="12" cy="30" r="2.5" /><circle cx="8" cy="22" r="2.5" /><circle cx="12" cy="14" r="2.5" />
+            </g>
+          </svg>
+        </span>
+        <div class="stream__copy">
+          <h3>Gatherings</h3>
+          <p>nSFi brings practitioners, researchers, technologists, and team designers together—in salons, field trips, research retreats, workshops, and offsites—to exchange insights, test prototypes, and surface what the field doesn't yet have language for.</p>
+        </div>
+        <div class="stream__num">I</div>
+        <button class="stream__more" data-id="w01">Detail →</button>
+      </article>
+
+      <article class="stream">
+        <span class="stream__icon" aria-hidden="true">
+          <svg viewBox="0 0 44 44">
+            <g class="dg-stroke dg-stroke--thin">
+              <line x1="11" y1="11" x2="33" y2="33" /><line x1="33" y1="11" x2="11" y2="33" /><line x1="11" y1="22" x2="33" y2="22" /><line x1="22" y1="11" x2="22" y2="33" />
+            </g>
+            <g class="dg-fill-black">
+              <circle cx="11" cy="11" r="3" /><circle cx="22" cy="11" r="3" /><circle cx="33" cy="11" r="3" /><circle cx="11" cy="22" r="3" /><circle cx="22" cy="22" r="3" /><circle cx="33" cy="22" r="3" /><circle cx="11" cy="33" r="3" /><circle cx="22" cy="33" r="3" /><circle cx="33" cy="33" r="3" />
+            </g>
+          </svg>
+        </span>
+        <div class="stream__copy">
+          <h3>Community Knowledge Hub</h3>
+          <p>A living, AI-assisted, human-reviewed hub for practitioner profiles, structured 1:1 interviews, small-group conversation briefs, and nSFi's public-facing storytelling. AI-generated content is flagged until a human has reviewed it—non-negotiable.</p>
+        </div>
+        <div class="stream__num">II</div>
+        <button class="stream__more" data-id="w02">Detail →</button>
+      </article>
+
+      <article class="stream">
+        <span class="stream__icon" aria-hidden="true">
+          <svg viewBox="0 0 44 44">
+            <path d="M 14 22 A 8 8 0 1 1 22 30" class="dg-stroke" />
+            <polyline points="20,26 22,30 25,29" class="dg-stroke" />
+            <circle cx="22" cy="22" r="2.5" class="dg-fill-black" />
+            <circle cx="36" cy="22" r="2.5" class="dg-fill-black" />
+            <line x1="24.5" y1="22" x2="33.5" y2="22" class="dg-stroke" />
+            <polyline points="31,20 33.5,22 31,24" class="dg-stroke" />
+            <text x="36" y="40" class="dg-label dg-label--clay" text-anchor="end">EVAL</text>
+          </svg>
+        </span>
+        <div class="stream__copy">
+          <h3>Field Pilots &amp; Prototyping</h3>
+          <p>nSFi partners with teams open to experimentation, introduces new social forms or CCC prototypes, and studies what happens. Modest, learning-oriented experiments. Each one produces an evaluation brief. Not a product. A research partnership.</p>
+        </div>
+        <div class="stream__num">III</div>
+        <button class="stream__more" data-id="w03">Detail →</button>
+      </article>
+
+      <article class="stream">
+        <span class="stream__icon" aria-hidden="true">
+          <svg viewBox="0 0 44 44">
+            <g class="dg-stroke dg-stroke--thin">
+              <line x1="6" y1="6" x2="22" y2="22" /><line x1="38" y1="6" x2="22" y2="22" /><line x1="6" y1="38" x2="22" y2="22" /><line x1="38" y1="38" x2="22" y2="22" />
+            </g>
+            <circle cx="22" cy="22" r="4" class="dg-fill-green" />
+          </svg>
+        </span>
+        <div class="stream__copy">
+          <h3>Research</h3>
+          <p>Four research directions on teams: a taxonomy of team forms, simulating structural variation with LLMs, workplace diagnostics, and an evaluation framework that travels across team contexts.</p>
+        </div>
+        <div class="stream__num">IV</div>
+        <button class="stream__more" data-id="w04">Detail →</button>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PLATE 04 · RESEARCH DIRECTIONS
+       ============================================================ -->
+  <section class="section" id="research">
+    <div class="plate">
+      <div class="plate__num">04</div>
+      <div class="plate__meta">
+        <span class="plate__eyebrow">✦ Research</span>
+        <h2 class="plate__title">Four directions, applied to teams.</h2>
+      </div>
+    </div>
+    <p class="lede">Year One initiates each. None is expected to be exhausted in Year One.</p>
+
+    <div class="research">
+      <article class="research__item">
+        <span class="research__icon" aria-hidden="true">
+          <svg viewBox="0 0 38 38">
+            <rect x="4" y="6" width="30" height="26" class="dg-stroke" />
+            <line x1="4" y1="14" x2="34" y2="14" class="dg-stroke dg-stroke--thin" />
+            <line x1="14" y1="14" x2="14" y2="32" class="dg-stroke dg-stroke--thin" />
+            <line x1="24" y1="14" x2="24" y2="32" class="dg-stroke dg-stroke--thin" />
+            <circle cx="9" cy="10" r="1.5" class="dg-fill-black" />
+          </svg>
+        </span>
+        <div>
+          <p class="research__num">01 · Taxonomy</p>
+          <h3 class="research__title">Taxonomy of team forms</h3>
+          <p class="research__body">A shared vocabulary for the structural components of team forms: input boundaries, process architecture, role structure, epistemic inputs, output mechanisms, feedback and accountability, spatial and material conditions, hierarchy and power. Anchored on forms CCC knows well; refined through the practitioner library.</p>
+          <button class="research__more" data-id="r01">Detail →</button>
+        </div>
+      </article>
+      <article class="research__item">
+        <span class="research__icon" aria-hidden="true">
+          <svg viewBox="0 0 38 38">
+            <line x1="19" y1="6" x2="19" y2="14" class="dg-stroke" />
+            <line x1="19" y1="14" x2="9" y2="22" class="dg-stroke" />
+            <line x1="19" y1="14" x2="29" y2="22" class="dg-stroke" />
+            <line x1="9" y1="22" x2="5" y2="32" class="dg-stroke" />
+            <line x1="9" y1="22" x2="13" y2="32" class="dg-stroke" />
+            <line x1="29" y1="22" x2="25" y2="32" class="dg-stroke" />
+            <line x1="29" y1="22" x2="33" y2="32" class="dg-stroke" />
+            <circle cx="19" cy="6" r="2" class="dg-fill-black" />
+            <g class="dg-fill-black">
+              <circle cx="5" cy="32" r="1.6" /><circle cx="13" cy="32" r="1.6" /><circle cx="25" cy="32" r="1.6" /><circle cx="33" cy="32" r="1.6" />
+            </g>
+          </svg>
+        </span>
+        <div>
+          <p class="research__num">02 · Build &amp; simulate</p>
+          <h3 class="research__title">Build and simulate</h3>
+          <p class="research__body">LLMs and computational tools model what changes when a team swaps one structural element for another. The validation protocol—generate, simulate, blind-evaluate with practitioners—is itself a publishable contribution.</p>
+          <button class="research__more" data-id="r02">Detail →</button>
+        </div>
+      </article>
+      <article class="research__item">
+        <span class="research__icon" aria-hidden="true">
+          <svg viewBox="0 0 38 38">
+            <path d="M 5 28 A 14 14 0 0 1 33 28" class="dg-stroke" />
+            <line x1="19" y1="28" x2="28" y2="14" class="dg-stroke" />
+            <circle cx="19" cy="28" r="2" class="dg-fill-black" />
+            <line x1="9" y1="28" x2="11" y2="28" class="dg-stroke dg-stroke--thin" />
+            <line x1="19" y1="14" x2="19" y2="16" class="dg-stroke dg-stroke--thin" />
+            <line x1="29" y1="28" x2="27" y2="28" class="dg-stroke dg-stroke--thin" />
+          </svg>
+        </span>
+        <div>
+          <p class="research__num">03 · Diagnostics</p>
+          <h3 class="research__title">Workplace design and diagnostics</h3>
+          <p class="research__body">A diagnostic that helps teams map their existing forms and surface the structural tensions no one has named. Workplace pilots allow sustained collaboration over months, introducing new forms and measuring what changes.</p>
+          <button class="research__more" data-id="r03">Detail →</button>
+        </div>
+      </article>
+      <article class="research__item">
+        <span class="research__icon" aria-hidden="true">
+          <svg viewBox="0 0 38 38">
+            <circle cx="19" cy="19" r="14" class="dg-stroke" />
+            <circle cx="19" cy="19" r="9" class="dg-stroke dg-stroke--thin" />
+            <circle cx="19" cy="19" r="4" class="dg-fill-green" />
+          </svg>
+        </span>
+        <div>
+          <p class="research__num">04 · Evaluation</p>
+          <h3 class="research__title">Evaluation framework</h3>
+          <p class="research__body">An evaluation framework that travels across team settings: <strong>structural</strong> (did the form do what it was designed to do), <strong>experiential</strong> (what was it like to be in the room), and <strong>relational</strong> (what changed in the relationships over time).</p>
+          <button class="research__more" data-id="r04">Detail →</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PLATE 05 · WHO THIS IS FOR
+       ============================================================ -->
+  <section class="section section--ink">
+    <div class="plate" style="border-top-color: #fff;">
+      <div class="plate__num" style="color:#fff;">05</div>
+      <div class="plate__meta">
+        <span class="plate__eyebrow" style="color:#D9DDD4;">◬ Three ways in</span>
+        <h2 class="plate__title">Who this is for.</h2>
+      </div>
+    </div>
+    <div class="audience">
+      <article class="audience__col">
+        <div class="audience__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><rect x="6" y="14" width="36" height="22" stroke="#FAFAF7" fill="none" stroke-width="1.4" /><line x1="6" y1="22" x2="42" y2="22" stroke="#FAFAF7" stroke-width="1" /><circle cx="24" cy="29" r="3" fill="#A6CC2E" /></svg>
+        </div>
+        <p class="audience__tag">[01] For team designers</p>
+        <h3 class="audience__title">If you design how teams work.</h3>
+        <p class="audience__body">Org structure, meeting cadences, collaboration norms, team rituals, or how space and technology shape coordination. nSFi is building the research and practice infrastructure for what you already do.</p>
+      </article>
+      <article class="audience__col">
+        <div class="audience__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="14" stroke="#FAFAF7" fill="none" stroke-width="1.4" /><path d="M 24 10 A 14 14 0 0 1 24 38" stroke="#FA6537" fill="none" stroke-width="1.6" /><circle cx="24" cy="24" r="3" fill="#FAFAF7" /></svg>
+        </div>
+        <p class="audience__tag">[02] For organizations</p>
+        <h3 class="audience__title">If you're open to experimentation.</h3>
+        <p class="audience__body">nSFi is recruiting partner teams for field pilots this summer and fall. You bring a willing team; we bring a prototype, a research frame, and an evaluation brief. No consulting fees.</p>
+      </article>
+      <article class="audience__col">
+        <div class="audience__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48"><line x1="8" y1="40" x2="40" y2="40" stroke="#FAFAF7" stroke-width="1.4" /><line x1="14" y1="40" x2="14" y2="22" stroke="#FAFAF7" stroke-width="1.4" /><line x1="22" y1="40" x2="22" y2="14" stroke="#FAFAF7" stroke-width="1.4" /><line x1="30" y1="40" x2="30" y2="26" stroke="#FAFAF7" stroke-width="1.4" /><line x1="38" y1="40" x2="38" y2="18" stroke="#FAFAF7" stroke-width="1.4" /><circle cx="22" cy="14" r="2.5" fill="#9A91FF" /></svg>
+        </div>
+        <p class="audience__tag">[03] For researchers</p>
+        <h3 class="audience__title">If you study how teams work.</h3>
+        <p class="audience__body">nSFi is building the foundational infrastructure for a new field—practitioner library, annotated corpus, computational modeling, and an evaluation framework for teams. Reach out.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PLATE 06 · ABOUT
+       ============================================================ -->
+  <section class="section" id="about">
+    <div class="plate">
+      <div class="plate__num">06</div>
+      <div class="plate__meta">
+        <span class="plate__eyebrow">@ About · Motivation</span>
+        <h2 class="plate__title">Why we do this.</h2>
+      </div>
+    </div>
+    <h3 class="about__head">Teams are the social form most people live inside. They deserve to be designed.</h3>
+    <p>Most of us spend our working lives inside teams someone else inherited. The structures that shape how we think, decide, and produce together are rarely chosen—and almost never redesigned once they're in place.</p>
+    <p>We started <strong>nSFi · New Social Forms</strong> because that gap matters. The pressure on teams is real and rising—from AI, from hybrid work, from rates of change the inherited forms were never built for. And the people who actually design new team forms—facilitators, organizational designers, researchers, technologists—work without a shared vocabulary, without a shared research base, and often without recognizing what they do as design.</p>
+    <p><strong>We want to change that.</strong></p>
+    <p>The MIT Center for Constructive Communication brings deep expertise in how people communicate and make meaning together—a builder culture that prototypes and tests in real-world settings, and research infrastructure that moves methods from the lab into the field. Google Xi brings reach into the conditions teams actually face inside organizations.</p>
+    <p>Year One focuses on teams. Over time, nSFi will expand: collective decision-making, civic participation, care and healing, learning, conflict and repair. But teams come first because teams are where the most people will feel the change.</p>
+  </section>
+
+  <!-- ============================================================
+       PLATE 07 · FAQ
+       ============================================================ -->
+  <section class="section section--alt" id="faq">
+    <div class="plate">
+      <div class="plate__num">07</div>
+      <div class="plate__meta">
+        <span class="plate__eyebrow">? FAQ</span>
+        <h2 class="plate__title">Questions we hear, answered plainly.</h2>
+      </div>
+    </div>
+    <div class="faq">
+      <details class="faq__item" open>
+        <summary class="faq__summary"><span class="faq__num">Q01</span><span>What is nSFi?</span><span class="faq__plus">+</span></summary>
+        <p class="faq__answer">nSFi (New Social Forms) is a multi-year research and practice initiative at the MIT Center for Constructive Communication, launched in cooperation with Google Xi. Year One focuses on teams: the most universal social form, and the one facing the most immediate structural pressure.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary"><span class="faq__num">Q02</span><span>Why teams?</span><span class="faq__plus">+</span></summary>
+        <p class="faq__answer">Teams are the social form most people work inside. They are also the form under the most acute pressure right now—from AI, hybrid work, and shifting expectations of what work itself is for. And they are designable. Most aren't being designed; they're being inherited. nSFi wants to change that.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary"><span class="faq__num">Q03</span><span>What does "social form" mean?</span><span class="faq__plus">+</span></summary>
+        <p class="faq__answer">A social form is the structure inside which people do something together. A standup is a form. A citizen assembly is a form. A retro, a town hall, a 1:1, a war room, a roadmap review—all forms. The form determines what kinds of conversation, decision, and coordination are possible.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary"><span class="faq__num">Q04</span><span>What is nSFi actually producing in Year One?</span><span class="faq__plus">+</span></summary>
+        <p class="faq__answer">A taxonomy of team forms. An annotated practitioner library. A diagnostic tool for workplaces. Evaluation briefs from field pilots. A corpus of structured 1:1s with practitioners. Computational simulations of structural variation. A public knowledge hub. Plus salons, gatherings, and a small Prototyping Fund.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary"><span class="faq__num">Q05</span><span>Is this consulting?</span><span class="faq__plus">+</span></summary>
+        <p class="faq__answer">No. nSFi is a research initiative. Field pilots are research partnerships, not consulting engagements. We don't sell services. Partners contribute a willing team and time; nSFi contributes a prototype, a research frame, and an evaluation brief.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary"><span class="faq__num">Q06</span><span>How is AI involved?</span><span class="faq__plus">+</span></summary>
+        <p class="faq__answer">Two ways. First, the substrate: AI is changing what teams need to be able to do, and that's part of why nSFi exists now. Second, the method: we use LLMs and computational tools to model what changes when a team swaps one structural element for another, and we use AI assistance in the knowledge hub—always flagged until a human reviews.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary"><span class="faq__num">Q07</span><span>Why MIT and Google Xi?</span><span class="faq__plus">+</span></summary>
+        <p class="faq__answer">MIT CCC has a rare combination of communication research, builder culture, and field-grade infrastructure for working with real institutions. Google Xi (Experience Institute) brings reach into the conditions teams face inside organizations, and an interest in what better team forms could look like at scale.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary"><span class="faq__num">Q08</span><span>Will nSFi eventually go beyond teams?</span><span class="faq__plus">+</span></summary>
+        <p class="faq__answer">Yes. Year One starts with teams because teams are where the most people will feel the change. Over multiple years nSFi will expand into other expressions of social form: collective decision-making, civic participation, care and healing, learning, conflict and repair.</p>
+      </details>
+      <details class="faq__item">
+        <summary class="faq__summary"><span class="faq__num">Q09</span><span>How do I get involved?</span><span class="faq__plus">+</span></summary>
+        <p class="faq__answer">Join the practitioner community. Apply your team for a field pilot. Come to a salon. Submit to the Prototyping Fund (open call, July). If none of those fit, reach out anyway.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PLATE 08 · CONNECT
+       ============================================================ -->
+  <section class="section section--green" id="connect">
+    <div class="plate">
+      <div class="plate__num">08</div>
+      <div class="plate__meta">
+        <span class="plate__eyebrow">⬡ Connect</span>
+        <h2 class="plate__title">Join the work.</h2>
+      </div>
+    </div>
+    <div class="connect">
+      <div class="connect__intro">
+        <p>nSFi is actively building. We're looking for the right people to build with—starting with the people who design how teams work.</p>
+        <h4>For team designers</h4>
+        <p>Practitioner library, gatherings, and the Prototyping Fund (open call, July).</p>
+        <h4>For organizations</h4>
+        <p>Field pilot partnerships through summer and fall.</p>
+        <h4>For researchers</h4>
+        <p>Collaborators, students, and postdocs welcome.</p>
+        <p class="connect__inst">nSFi · MIT Media Lab · in cooperation with Google Xi</p>
+      </div>
+      <form class="form" autocomplete="on" onsubmit="event.preventDefault(); this.querySelector('.form__btn').textContent='Sent ✓';">
+        <p class="form__honey"><label>Don't fill this out if you are a human <input type="text" name="hp" tabindex="-1" autocomplete="off"></label></p>
+        <div class="form__row">
+          <label class="form__field"><span>First name</span><input name="first" type="text" required></label>
+          <label class="form__field"><span>Last name</span><input name="last" type="text" required></label>
+        </div>
+        <div class="form__row">
+          <label class="form__field"><span>Email</span><input name="email" type="email" required></label>
+          <label class="form__field"><span>Organization</span><input name="org" type="text"></label>
+        </div>
+        <label class="form__field">
+          <span>What brings you here?</span>
+          <select name="bring" required>
+            <option value="">Choose one…</option>
+            <option>I design how teams work</option>
+            <option>I lead or manage a team</option>
+            <option>I want to run a pilot experiment with my team</option>
+            <option>I study teams or social forms (researcher)</option>
+            <option>I'm interested in partnership</option>
+            <option>I want to attend gatherings</option>
+            <option>Something else</option>
+          </select>
+        </label>
+        <label class="form__field">
+          <span>Message (optional)</span>
+          <textarea name="message" rows="3"></textarea>
+        </label>
+        <button type="submit" class="form__btn">Send →</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER + PARTNER LOGOS
+     ============================================================ -->
+<footer class="foot">
+  <div class="foot__inner">
+
+    <div class="partners">
+      <div class="partner">
+        <span class="partner__role">Hosted at</span>
+        <div class="partner__mark">
+          <span class="partner__bars" aria-hidden="true">
+            <!-- Stylized 6-bar wordmark gestures (typographic, monochrome) -->
+            <svg viewBox="0 0 56 22"><g fill="#fff"><rect x="0" y="0" width="6" height="22"/><rect x="10" y="0" width="6" height="14"/><rect x="20" y="0" width="6" height="22"/><rect x="30" y="6" width="6" height="16"/><rect x="40" y="0" width="6" height="22"/><rect x="50" y="0" width="6" height="14"/></g></svg>
+          </span>
+          <span class="partner__name">MIT · Center for Constructive Communication</span>
+        </div>
+        <span class="partner__sub">MIT Media Lab · CCC</span>
+      </div>
+      <div class="partner">
+        <span class="partner__role">In cooperation with</span>
+        <div class="partner__mark">
+          <span class="partner__gxi" aria-hidden="true"><b>G</b><span>Xi</span></span>
+          <span class="partner__name">Google Xi</span>
+        </div>
+        <span class="partner__sub">Google Experience Institute</span>
+      </div>
+    </div>
+
+    <div class="foot__top">
+      <img class="foot__mark" src="./logos/Wordmark_Stacked_white.svg" alt="nSFi · New Social Forms" />
+      <ul class="foot__nav" aria-label="Footer">
+        <li><a href="#teams">Teams</a></li>
+        <li><a href="#workstreams">Workstreams</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#connect">Connect</a></li>
+      </ul>
+    </div>
+    <div class="foot__bottom">
+      <span class="meta">© 2026 nSFi · MIT Center for Constructive Communication · Google Xi</span>
+      <span class="meta">A field guide to team forms · Year One: Teams · Vol. 01</span>
+      <a href="mailto:hello@newsocialforms.org">hello@newsocialforms.org</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     DRAWER (deep-dive panel)
+     ============================================================ -->
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer__overlay" data-close></div>
+  <div class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <header class="drawer__hd">
+      <span><b id="drawer-kicker">nSFi · Component</b></span>
+      <button class="drawer__close" data-close>Close · ESC</button>
+    </header>
+    <div class="drawer__body">
+      <p class="drawer__num" id="drawer-num">—</p>
+      <h2 class="drawer__title" id="drawer-title">—</h2>
+      <p class="drawer__lede" id="drawer-lede">—</p>
+      <div id="drawer-content"></div>
+    </div>
+  </div>
+</aside>
+
+<script>
+  // ----- Sticky-nav state -----
+  (function () {
+    var nav = document.querySelector('.mast');
+    if (!nav) return;
+    var onScroll = function () {
+      if (window.scrollY > 4) nav.style.boxShadow = '0 1px 0 rgba(0,0,0,.06)';
+      else nav.style.boxShadow = 'none';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // ----- FAQ accordion: only one open at a time -----
+  (function () {
+    var items = document.querySelectorAll('.faq__item');
+    items.forEach(function (it) {
+      it.addEventListener('toggle', function () {
+        if (it.open) {
+          items.forEach(function (other) { if (other !== it) other.removeAttribute('open'); });
+        }
+      });
+    });
+  })();
+
+  // ----- Drawer (deep-dive panel) -----
+  (function () {
+    var drawer = document.getElementById('drawer');
+    var kicker = document.getElementById('drawer-kicker');
+    var num = document.getElementById('drawer-num');
+    var title = document.getElementById('drawer-title');
+    var lede = document.getElementById('drawer-lede');
+    var content = document.getElementById('drawer-content');
+
+    var DATA = {
+      // ---- Components (hero exploded diagram) ----
+      c01: {
+        kicker: 'nSFi · Component',
+        num: '01 · Component of a team form',
+        title: 'Input boundaries',
+        lede: 'Who and what gets into the team\'s work.',
+        body: '<p>Membership boundaries determine who has standing to speak, what kinds of input count as legitimate, and what the team can know. Most teams have inherited a membership policy without realizing it is one.</p><p class="drawer__sub">Common variations</p><ul class="drawer__list"><li>Closed teams · stable membership for the duration of the work</li><li>Open teams · admits new members on a rolling basis</li><li>Advisory rings · expertise on tap without full membership</li><li>Rotating residencies · staff cycle in and out for fixed terms</li><li>Time-bounded squads · disbanded at a fixed milestone</li></ul><p><strong>Why it matters.</strong> The choice of boundary shapes everything downstream: what kinds of disagreement appear, what knowledge is reachable, what social trust the team can build.</p>'
+      },
+      c02: {
+        kicker: 'nSFi · Component · Year One focus',
+        num: '02 · Component of a team form',
+        title: 'Process architecture',
+        lede: 'How decisions get made—the choreography of the work.',
+        body: '<span class="drawer__chip">Year One focus</span><p>The structural component most aware redesigners spend their time on. Also the easiest to change deliberately, and the easiest to leave inherited.</p><p class="drawer__sub">Common variations</p><ul class="drawer__list"><li>Round-robin · every voice in turn</li><li>RAPID · explicit roles for who decides, who advises, who informs</li><li>Advice process · proposer + advice from anyone affected</li><li>Consent-based · objections rather than agreement</li><li>Autocratic with consultation · leader decides, room is heard</li><li>Hybrid forms that combine these for different decision classes</li></ul><p><strong>Why Year One.</strong> Process architecture is the lever that produces the most visible behavioral change with the smallest structural intervention. It is where nSFi expects the highest return on practitioner attention.</p>'
+      },
+      c03: {
+        kicker: 'nSFi · Component',
+        num: '03 · Component of a team form',
+        title: 'Role structure',
+        lede: 'Who does what. The differentiation of work and authority.',
+        body: '<p>Often inherited from the org chart even though it is a structural design choice.</p><p class="drawer__sub">Common variations</p><ul class="drawer__list"><li>Flat · no formal differentiation of role</li><li>Function-based · PM, eng, design, etc.</li><li>Holacratic · roles distinct from people, multiple roles per person</li><li>Pair-based · two-person units as the atomic structure</li><li>Rotating · roles cycle on a cadence</li></ul><p><strong>The redesign question.</strong> Is the role structure carrying the work, or is the work routing around it?</p>'
+      },
+      c04: {
+        kicker: 'nSFi · Component',
+        num: '04 · Component of a team form',
+        title: 'Output mechanisms',
+        lede: 'How work leaves the team.',
+        body: '<p>What "done" looks like, who signs it off, what shape the work takes when it ships. The choice shapes what kinds of work the team feels capable of producing.</p><p class="drawer__sub">Common variations</p><ul class="drawer__list"><li>Ticket-based · individual units of work as the output</li><li>Milestone-based · larger structured releases</li><li>Ship-when-ready · continuous deployment</li><li>Peer-review-required · output gated by team consensus</li><li>Demo-day · output presented and accepted in a recurring forum</li></ul>'
+      },
+      c05: {
+        kicker: 'nSFi · Component',
+        num: '05 · Component of a team form',
+        title: 'Feedback and accountability',
+        lede: 'How the team knows whether it is working.',
+        body: '<p>Most teams collect feedback ritually without designing what feedback they actually need. The redesign question is what would the team have to learn to actually change its form.</p><p class="drawer__sub">Common variations</p><ul class="drawer__list"><li>Retrospectives · cadenced reflection on the work</li><li>Customer signal · external feedback as the primary input</li><li>Automated metrics · operational dashboards</li><li>Performance reviews · individual accountability layered on team work</li><li>Peer feedback · structured 360s</li></ul>'
+      },
+      c06: {
+        kicker: 'nSFi · Component',
+        num: '06 · Component of a team form',
+        title: 'Epistemic inputs',
+        lede: 'What the team knows.',
+        body: '<p>Time and budget for learning, the research culture, the relationship between producing and reading. Some teams treat learning as a tax. Others treat it as the foundation of good output. The form determines which.</p><p class="drawer__sub">What to look for</p><ul class="drawer__list"><li>Reading time as a structural budget, not a side activity</li><li>External experts as a recurring input rather than an event</li><li>Ritualized exposure to dissenting evidence</li></ul>'
+      },
+      c07: {
+        kicker: 'nSFi · Component',
+        num: '07 · Component of a team form',
+        title: 'Spatial and material conditions',
+        lede: 'Where and with what.',
+        body: '<p>Office, remote, hybrid, async-first. Hot desks, war rooms, shared docs, particular tools. The spatial form is often invisible until you change it—and then it turns out to have been doing structural work all along.</p><p class="drawer__sub">Underlying questions</p><ul class="drawer__list"><li>Where does serendipitous coordination actually happen?</li><li>What does the tooling assume about who is talking to whom?</li><li>Which decisions get made in which spaces?</li></ul>'
+      },
+      c08: {
+        kicker: 'nSFi · Component · rarely named',
+        num: '08 · Component of a team form',
+        title: 'Hierarchy and power',
+        lede: 'Who can override whom.',
+        body: '<p>Often informal, often unnamed. The hardest component to redesign because it is the one people are most likely to deny exists.</p><p>nSFi treats it as a designable component anyway. Every team has one. The question is whether it has been chosen.</p><p class="drawer__sub">Forms it shows up in</p><ul class="drawer__list"><li>Veto rights, formal or informal</li><li>Default tiebreakers when consensus fails</li><li>Whose objection ends a discussion</li><li>The asymmetry between speaking up and being heard</li></ul>'
+      },
+
+      // ---- Protocol steps ----
+      p01: {
+        kicker: 'nSFi · Protocol · Step 01',
+        num: 'Step 01 · 20 min',
+        title: 'Silent brainstorm with an LLM',
+        lede: 'Twenty minutes of structured solo work, each person paired with an LLM.',
+        body: '<p>The model is briefed on the project context. Each person uses it differently—some for divergence, some to interrogate their own ideas, some to surface variations they wouldn\'t have thought of alone. They bring back a list of ideas, marked clearly: their own, the LLM\'s, and the ones they jointly produced.</p><p class="drawer__sub">What changes</p><ul class="drawer__list"><li>The floor effect goes away — no one is anchored to whoever spoke first</li><li>The loud-voice problem dissolves before it can begin</li><li>Slower thinkers contribute on the same footing as faster ones</li></ul><p class="drawer__sub">What to watch for</p><ul class="drawer__list"><li>People treating the LLM as an answer machine instead of a sparring partner — brief them on the difference</li><li>Convergence to whatever the LLM said first — push for variations</li><li>Forgetting to mark which ideas came from where — labels are the discipline</li></ul>'
+      },
+      p02: {
+        kicker: 'nSFi · Protocol · Step 02',
+        num: 'Step 02 · 30 min',
+        title: 'Affinity sort, LLM in the room',
+        lede: 'The form has seven participants now, one of which is non-human.',
+        body: '<p>The group reconvenes. All ideas get sorted into clusters together. The LLM is briefed with the same context plus all the lists, and its role is now explicit: name the assumptions nobody is voicing, flag where two ideas contradict, and generate the case nobody around the table would make. It does not vote. It does not facilitate.</p><p class="drawer__sub">What the LLM does in the room</p><ul class="drawer__list"><li>Surfaces hidden assumptions ("you\'re all assuming X")</li><li>Names contradictions between adjacent clusters</li><li>Generates the strongest counter-case nobody is making</li><li>Asks the question nobody is asking</li></ul><p class="drawer__sub">What it does <em>not</em> do</p><ul class="drawer__list"><li>Vote · summarize what you already think · facilitate</li><li>Tell the team what to do</li></ul><p><strong>The point.</strong> The team\'s blind spots get named without anyone having to be the "but what about" person.</p>'
+      },
+      p03: {
+        kicker: 'nSFi · Protocol · Step 03',
+        num: 'Step 03 · 10 min',
+        title: 'Decision · humans only',
+        lede: 'The LLM steps out. The humans choose.',
+        body: '<p>Ten minutes. The decision belongs entirely to the team. What is different is the room they are choosing in.</p><p class="drawer__sub">What is different</p><ul class="drawer__list"><li>Blind spots have been named</li><li>Contradictions have been surfaced</li><li>The strongest counter-case has been heard</li><li>The texture of the disagreement has changed</li></ul><p><strong>The room thinks better.</strong> Decision quality goes up without the team\'s authority going down.</p>'
+      },
+
+      // ---- Workstreams ----
+      w01: {
+        kicker: 'nSFi · Workstream I',
+        num: 'Workstream I',
+        title: 'Gatherings',
+        lede: 'Salons, field trips, research retreats, workshops, offsites.',
+        body: '<p>The first round of small-group conversations begins this summer with a focused question: what is the inherited form of this team, and which component would changing change the most?</p><p class="drawer__sub">Year One outputs</p><ul class="drawer__list"><li>10–12 anchor practitioners as recurring participants</li><li>Quarterly salons (one per quarter)</li><li>Two field trips · workplaces redesigning their forms</li><li>One research retreat · multi-day deep-dive</li></ul><p class="drawer__sub">What we need from collaborators</p><ul class="drawer__list"><li>Practitioners willing to participate in structured 1:1s</li><li>Hosts willing to open their workplaces for field visits</li></ul>'
+      },
+      w02: {
+        kicker: 'nSFi · Workstream II',
+        num: 'Workstream II',
+        title: 'Community Knowledge Hub',
+        lede: 'A practitioner library, structured 1:1 interviews, and the initiative\'s public-facing storytelling.',
+        body: '<p>AI assists with synthesis. Humans review before publication. AI-generated content is flagged until human-reviewed — non-negotiable.</p><p class="drawer__sub">Year One outputs</p><ul class="drawer__list"><li>Annotated practitioner library · 30+ profiles</li><li>Public soft-launch of the hub · late fall</li><li>Corpus of structured 1:1s · 12–15 conversations</li><li>Editorial publication on team-form redesign</li></ul><p class="drawer__sub">What we need from collaborators</p><ul class="drawer__list"><li>Practitioners willing to be profiled</li><li>Editorial reviewers</li><li>Test readers for the soft-launch</li></ul>'
+      },
+      w03: {
+        kicker: 'nSFi · Workstream III',
+        num: 'Workstream III',
+        title: 'Field Pilots & Prototyping',
+        lede: 'Research partnerships with teams open to experimentation.',
+        body: '<p>nSFi partners with teams open to redesign, introduces a new social form, and studies what happens. Modest, learning-oriented experiments. Each one produces an evaluation brief.</p><p class="drawer__sub">Year One outputs</p><ul class="drawer__list"><li>3–5 pilot partnerships · summer through fall</li><li>Evaluation briefs published quarterly</li><li>Prototyping Fund open call · July</li></ul><p class="drawer__sub">What we need from collaborators</p><ul class="drawer__list"><li>Partner teams willing to redesign one component</li><li>Evaluators · structural, experiential, relational</li></ul>'
+      },
+      w04: {
+        kicker: 'nSFi · Workstream IV',
+        num: 'Workstream IV',
+        title: 'Research',
+        lede: 'Four research directions on teams.',
+        body: '<p>A taxonomy of team forms, simulating structural variation with LLMs, workplace diagnostics, and a cross-context evaluation framework.</p><p class="drawer__sub">Year One outputs</p><ul class="drawer__list"><li>Draft taxonomy · public for comment</li><li>Validation protocol · run with practitioner panels</li><li>Computational experiments · 3–5 paired with field pilots</li><li>Diagnostic instrument · prototype for partner teams</li></ul>'
+      },
+
+      // ---- Research directions ----
+      r01: {
+        kicker: 'nSFi · Research · 01',
+        num: '01 · Taxonomy',
+        title: 'Taxonomy of team forms',
+        lede: 'A shared vocabulary for the structural components of team forms.',
+        body: '<p>The eight components: input boundaries, process architecture, role structure, epistemic inputs, output mechanisms, feedback and accountability, spatial and material conditions, and hierarchy and power.</p><p class="drawer__sub">Anchor cases</p><ul class="drawer__list"><li>Citizen assemblies (CCC home turf)</li><li>New England-style town halls</li><li>Cortico listening projects</li><li>Common workplace forms · standup, retro, RAPID</li></ul><p class="drawer__sub">Year One milestones</p><ul class="drawer__list"><li>Draft taxonomy in public review · Q3</li><li>20+ team-form profiles annotated against the taxonomy</li><li>Practitioner blind-evaluation panel</li></ul>'
+      },
+      r02: {
+        kicker: 'nSFi · Research · 02',
+        num: '02 · Build & simulate',
+        title: 'Build and simulate',
+        lede: 'Use computation to model what changes when one structural element changes.',
+        body: '<p>A structured validation protocol: generate novel structural combinations, simulate their dynamics, present them to practitioners for blind evaluation, and compare.</p><p class="drawer__sub">Why this matters</p><ul class="drawer__list"><li>Shrinks the cost of testing structural changes from months to hours</li><li>Surfaces non-obvious interaction effects between components</li><li>The validation protocol itself is publishable</li></ul>'
+      },
+      r03: {
+        kicker: 'nSFi · Research · 03',
+        num: '03 · Diagnostics',
+        title: 'Workplace design and diagnostics',
+        lede: 'A diagnostic that helps teams map their existing forms.',
+        body: '<p>The instrument surfaces structural tensions no one has named. Workplace pilot partnerships allow sustained collaboration over months — introducing new forms from the research and measuring what changes.</p><p class="drawer__sub">Year One milestones</p><ul class="drawer__list"><li>Diagnostic instrument · prototype</li><li>3 pilot partnerships running the instrument</li><li>Cross-pilot synthesis · what changed when</li></ul>'
+      },
+      r04: {
+        kicker: 'nSFi · Research · 04',
+        num: '04 · Evaluation',
+        title: 'Evaluation framework',
+        lede: 'Three dimensions: structural, experiential, relational.',
+        body: '<p><strong>Structural</strong> · did the form do what it was designed to do?<br/><strong>Experiential</strong> · what was it like to be in the room?<br/><strong>Relational</strong> · what changed in the relationships over time?</p><p class="drawer__sub">Why three</p><ul class="drawer__list"><li>Structural alone misses what doesn\'t feel right</li><li>Experiential alone misses what shipped</li><li>Relational alone misses both — but it\'s the layer most often unmeasured</li></ul>'
+      }
+    };
+
+    function open(id) {
+      var d = DATA[id];
+      if (!d) return;
+      kicker.textContent = d.kicker;
+      num.textContent = d.num;
+      title.textContent = d.title;
+      lede.textContent = d.lede;
+      content.innerHTML = d.body;
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      // Focus close button for keyboard
+      setTimeout(function () { drawer.querySelector('.drawer__close').focus(); }, 240);
+    }
+
+    function close() {
+      drawer.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    // Click handlers — hotspots, protocol "Detail →" buttons, stream/research buttons
+    document.querySelectorAll('.hotspot, [data-id]').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        var id = el.getAttribute('data-id');
+        if (id) { e.preventDefault(); open(id); }
+      });
+      // Keyboard: Enter or Space activates
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          var id = el.getAttribute('data-id');
+          if (id) { e.preventDefault(); open(id); }
+        }
+      });
+    });
+
+    // Close handlers
+    drawer.querySelectorAll('[data-close]').forEach(function (el) {
+      el.addEventListener('click', close);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
+    });
+  })();
+</script>
+</body>
+</html>
