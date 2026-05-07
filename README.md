@@ -1,31 +1,18 @@
-# nSFi · A field guide to team forms
+# nSFi · New Social Forms · Year One: Teams
 
-Static single-page site for the New Social Forms Initiative (nSFi) — a research and practice initiative at the MIT Center for Constructive Communication, in cooperation with Google Xi.
-
-**Live:** *(populated after first deploy)*
-**Status:** Year One · Teams · Vol. 01 · 2026
+Static single-page site for the New Social Forms Initiative (nSFi). Built on top of Lucas Drummond's typography + color discipline from `ldrummond/new-social-forms-website`, with real Supabase Realtime cursor sharing, a sticky workbook gutter prompt, and a FAQ workbook (localStorage notes).
 
 ## Stack
 
-Pure static — no build step. HTML, CSS, fonts, and SVG logos.
+Pure static — HTML, CSS, fonts, SVG. No build step. Realtime cursors over Supabase Realtime channels (publishable key, no auth).
 
 ## Local preview
 
-Open `index.html` in a browser, or run a local server:
-
 ```
 python3 -m http.server 8000
-# then visit http://localhost:8000
+# http://localhost:8000
 ```
 
 ## Deploy
 
-Deploys to Vercel from `main`. No build step needed.
-
-## Files
-
-- `index.html` — the page
-- `colors_and_type.css` — design tokens + webfont @font-face
-- `fonts/` — UN-11ST and TINY5x3 webfonts
-- `logos/` — nSFi avatar and stacked wordmark
-- `vercel.json` — clean URLs + cache headers for fonts/logos
+Static deploy on Vercel from `main`. Pushes to `main` auto-deploy.
